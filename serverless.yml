@@ -19,6 +19,16 @@ provider:
 package:
   artifact: build/libs/hello-sqs-sns.jar
 
+functions:
+  Lambda1:
+    handler: basic.Lambda1
+    timeout: 900
+    reservedConcurrency: 100
+    events:
+      - sns:
+          arn: !Ref BasicTopic
+          topicName: BasicTopic
+
 resources:
   Resources:
     BasicEventRule:
