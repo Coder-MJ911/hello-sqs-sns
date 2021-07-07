@@ -49,6 +49,6 @@ resources:
       Type: AWS::SNS::Topic
       Properties:
         TopicName: MyCustomTopic
-        Subcription:
-          - Protocol: email
-            Endpoint: jiajie.ma@thoughtworks.com
+        Subscription:
+          - Endpoint: jiajie.ma@thoughtworks.com
+            Protocol: email
