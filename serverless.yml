@@ -24,7 +24,7 @@ resources:
     BasicEventRule:
       Type: AWS::Events::Rule
       Properties:
-        ScheduleExpression: cron(0/5 * ? * MON-FRI *)
+        ScheduleExpression: cron(0 9 ? * 2#1 *) #cron(0/5 * ? * MON-FRI *)
         Description: EventRuleForSns
         State: ENABLED
         Targets:
