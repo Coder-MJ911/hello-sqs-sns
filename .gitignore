@@ -13,3 +13,5 @@ target/
 .gradle/*
 build
 build/*
+.serverless
+.serverless/*

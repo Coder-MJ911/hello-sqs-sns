@@ -3,7 +3,7 @@ service: AWSSelfLearning
 provider:
   name: aws
   runtime: java8
-  region: global
+  region: ap-southeast-2
   versionFunctions: false
   profile: tw-aws-beach
 
