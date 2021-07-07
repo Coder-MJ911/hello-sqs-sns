@@ -1,0 +1,53 @@
+service: AWSSelfLearning
+
+provider:
+  name: aws
+  runtime: java8
+  region: global
+  versionFunctions: false
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - lambda:InvokeFunction
+        - sns:*
+        - logs:*
+        - cloudwatch:*
+      Resource: "*"
+
+package:
+  artifact: build/libs/hello-sqs-sns.jar
+
+resources:
+  Resources:
+    BasicEventRule:
+      Type: AWS::Events::Rule
+      Properties:
+        ScheduleExpression: cron(0/5 * ? * MON-FRI *)
+        Description: EventRuleForSns
+        State: ENABLED
+        Targets:
+          - Arn:
+              Ref: BasicTopic
+            Id: targetSnsV1
+
+    BasicTopicPolicy:
+      Type: AWS::SNS::TopicPolicy
+      Properties:
+        PolicyDocument:
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service: events.amazonaws.com
+              Action: sns:Publish
+              Resource: '*'
+        Topics:
+          - !Ref BasicTopic
+
+    BasicTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: MyCustomTopic
+        Subcription:
+          - Protocol: email
+            Endpoint: jiajie.ma@thoughtworks.com
