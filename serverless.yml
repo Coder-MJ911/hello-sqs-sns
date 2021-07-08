@@ -92,3 +92,17 @@ resources:
           - Arn
         Protocol: sqs
         RawMessageDelivery: 'true'
+
+
+    SampleSQSPolicy:
+      Type: AWS::SQS::QueuePolicy
+      Properties:
+        Queues:
+          - !Ref LambdaQueue
+        PolicyDocument:
+          Statement:
+            - Effect: Allow
+              Action: SQS:SendMessage
+              Resource: '*'
+              Principal:
+                Service: sns.amazonaws.com
