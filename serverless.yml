@@ -29,6 +29,18 @@ functions:
           arn: !Ref BasicTopic
           topicName: BasicTopic
 
+  Lambda2:
+    handler: basic.Lambda2
+    timeout: 900
+    reservedConcurrency: 100
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - LambdaQueue
+              - Arn
+          batchSize: 1
+
 resources:
   Resources:
     BasicEventRule:
@@ -62,3 +74,20 @@ resources:
         Subscription:
           - Endpoint: jiajie.ma@thoughtworks.com
             Protocol: email
+
+    LambdaQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: sns-sqs-lambda-message-queue
+        VisibilityTimeout: 300
+        MessageRetentionPeriod: 604800
+
+    SQSSubscription:
+      Type: 'AWS::SNS::Subscription'
+      Properties:
+        TopicArn: !Ref BasicTopic
+        Endpoint: !GetAtt
+          - LambdaQueue
+          - Arn
+        Protocol: sqs
+        RawMessageDelivery: 'true'
