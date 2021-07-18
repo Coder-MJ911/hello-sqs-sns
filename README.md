@@ -4,8 +4,6 @@
 
 this is just for AWS Learning about Lambda | SNS | SQS | CloudWatch
 
-
-
 Basic:
 
 work flow:
