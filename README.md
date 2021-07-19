@@ -35,7 +35,10 @@ Advance:
 ```html
 ACs
 有可部署 Basic 中内容的 Cloudformation
-对比SNS->Lambda和SNS->SQS->Lambda的区别
+
+对比SNS->Lambda和SNS->SQS->Lambda的区别:
+在 SNS 和 Lambda 之间使用 SQS 的唯一优势是重新处理。假设 Lambda 由于某种原因（例如超时或内存不足）无法处理某些事件，您可以增加超时（最多 5 分钟）或内存（最多 1.5GB）并重新启动轮询，然后您可以重新处理较旧的事件。
+
 同时对于 SQS和Lambda 要有 DLQ(dead letter queue)
 使用 IAM 控制 访问权限
 为 SNS 添加 tag（eg. Project code, owner)
