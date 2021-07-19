@@ -20,6 +20,7 @@ SQS要有retention(7days) / timeout(5mins)
 SQS自动触发Lambda运行，Lambda将event的所有内容输出到CloudWatch log中
 ```
 
+
 # How to deploy basic stack
 ```shell
 $ saml2aws login --profile tw-aws-beach
