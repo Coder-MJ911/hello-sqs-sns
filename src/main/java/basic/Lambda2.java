@@ -14,6 +14,7 @@ public class Lambda2 implements RequestHandler<SQSEvent, String> {
             String bodyMsg = msg.getBody();
             response.append(bodyMsg);
         }
+        if(response.toString().contains("error")) throw new RuntimeException("error");
         logger.log(response.toString());
         return response.toString();
     }

@@ -14,6 +14,7 @@ public class Lambda1 implements RequestHandler<SNSEvent, String> {
         for (SNSEvent.SNSRecord msg : event.getRecords()) {
             response.append(msg);
         }
+        if(response.toString().contains("error")) throw new RuntimeException("error");
         logger.log(response.toString());
         return response.toString();
     }
