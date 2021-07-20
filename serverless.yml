@@ -89,6 +89,7 @@ resources:
             - FailedFlow1Queue
             - Arn
           maxReceiveCount: 3
+#        KmsMasterKeyId: ded05a6e-2173-4a8a-aa9a-5a23e8d579fd
 
     FailedFlow1Queue:
       Type: AWS::SQS::Queue
