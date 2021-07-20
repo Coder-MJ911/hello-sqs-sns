@@ -29,11 +29,11 @@ functions:
       - sns:
           arn: !Ref BasicTopic
           topicName: BasicTopic
-          FilterPolicy:
+          redrivePolicy:
+            deadLetterTargetRef: FailedFlow2Queue
+          filterPolicy:
             Target:
               - Lambda
-    DeadLetterConfig:
-      TargetArn: !Ref FailedFlow2Queue
 
   Lambda2:
     handler: basic.Lambda2
@@ -108,7 +108,7 @@ resources:
         TopicName: MyCustomOOnErrorTopic
         Subscription:
           - Endpoint: jiajie.ma@thoughtworks.com
-            Protocol: email
+            Protocol: Email
 
     LambdaFlow1Alarm:
       Type: AWS::CloudWatch::Alarm
@@ -127,7 +127,7 @@ resources:
               Fn::GetAtt:
                 - FailedFlow1Queue
                 - QueueName
-        TreatMissingData: notbreaching
+        TreatMissingData: notBreaching
         MetricName: NumberOfMessagesSent
         Namespace: AWS/SQS
         Statistic: Sum
@@ -149,7 +149,7 @@ resources:
               Fn::GetAtt:
                 - FailedFlow2Queue
                 - QueueName
-        TreatMissingData: notbreaching
+        TreatMissingData: notBreaching
         MetricName: NumberOfMessagesSent
         Namespace: AWS/SQS
         Statistic: Sum
@@ -173,10 +173,6 @@ resources:
         TopicArn: !Ref BasicTopic
         Endpoint: jiajie.ma@thoughtworks.com
         Protocol: email
-        RawMessageDelivery: 'true'
-        FilterPolicy:
-          Target:
-            - Email
 
     SampleSQSPolicy:
       Type: AWS::SQS::QueuePolicy
