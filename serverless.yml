@@ -76,6 +76,9 @@ resources:
     BasicTopic:
       Type: AWS::SNS::Topic
       Properties:
+        Tags:
+          - Key: "key"
+            Value: "value"
         TopicName: MyCustomTopic
 
     LambdaQueue:
